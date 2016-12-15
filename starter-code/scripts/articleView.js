@@ -19,6 +19,13 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
+      /* TODO: If the slect box changes to an option that has a value, we should:
+               1. Hide all of the articles
+               2. Fade in only the articles that match based on on the author
+                 that was aselected. Hint: use an attribute selector to find
+                 those articles that match the value, and then fade them in.
+             */
+
       $('article').hide(); //Hide all of the articles
 
       $('article').not('.template').each(function(){
@@ -71,13 +78,13 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
-    $('.tab').hide();
     /* TODO:
-
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    //$('.tab').hide();
+
   });
   $('.main-nav .tab:first').click();
 };
