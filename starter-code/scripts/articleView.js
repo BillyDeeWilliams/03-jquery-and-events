@@ -80,10 +80,13 @@ articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
     $('.tab').show();
     $(this).hide();
+
     var content = $(this).attr('data-content');
+
     $('.tab-content').hide();
     $('#' + content).fadeIn(3000);
   });
+
   $('.main-nav .tab:first').click();
 };
     // $('.tab').hide();
@@ -95,16 +98,19 @@ articleView.handleMainNav = function () {
 
 articleView.setTeasers = function() {
 
-  $('.article-body *:nth-of-type(n+2)').toggle();//all child elems of elems with class .article-body starting after the second elem
-
+  //all child elems of elems with class .article-body starting after the second elem
+  $('.article-body *:nth-of-type(n+2)').toggle(); //off
+  var showLess = $('a.show-less');
   var readOn = $('a.read-on');
   var elemsAfterSecond = $('.article-body *:nth-of-type(n+2)');
+  // var currentObject = $(this);
   // console.log(readOn);
   // console.log(elemsAfterSecond);
   readOn.on('click', function(event) {
     event.preventDefault();
     elemsAfterSecond.toggle(); //toggle back to show
-    readOn.hide();
+    readOn.toggle(); //off
+    showLess.show();// on
   });
 
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
@@ -115,7 +121,7 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
-  var showLess = ''
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
