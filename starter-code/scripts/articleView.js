@@ -80,10 +80,13 @@ articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
     $('.tab').show();
     $(this).hide();
+
     var content = $(this).attr('data-content');
+
     $('.tab-content').hide();
     $('#' + content).fadeIn(3000);
   });
+
   $('.main-nav .tab:first').click();
 };
     // $('.tab').hide();
@@ -94,7 +97,22 @@ articleView.handleMainNav = function () {
     */
 
 articleView.setTeasers = function() {
-  $('.article-body *:nth-of-type(n+2)').hide();
+
+  //all child elems of elems with class .article-body starting after the second elem
+  $('.article-body *:nth-of-type(n+2)').toggle(); //off
+  var showLess = $('a.show-less');
+  var readOn = $('a.read-on');
+  var elemsAfterSecond = $('.article-body *:nth-of-type(n+2)');
+  // var currentObject = $(this);
+  // console.log(readOn);
+  // console.log(elemsAfterSecond);
+  readOn.on('click', function(event) {
+    event.preventDefault();
+    elemsAfterSecond.toggle(); //toggle back to show
+    readOn.toggle(); //off
+    showLess.show();// on
+  });
+
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the defaul actionof a link.
@@ -103,6 +121,7 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -110,3 +129,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers ();
