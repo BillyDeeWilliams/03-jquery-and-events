@@ -10,7 +10,7 @@ articleView.populateFilters = function() {
     $('#author-filter').append(optionTag);
     category = $(this).attr('data-category');
     optionTag = '<option value="' + category + '">' + category + '</option>';
-    if ($('#category-filter option[value="' + category + '"]').length === 0) {
+    if ($('#category-filter option[value="' + category + '"]').length === 0) { //wtf is happening here?
       $('#category-filter').append(optionTag);
     }
   });
@@ -29,7 +29,7 @@ articleView.handleAuthorFilter = function() {
       $('article').hide(); //Hide all of the articles
 
       $('article').not('.template').each(function(){
-        var author = $(this).find('address a').text();
+        var author = $(this).find('address a').text();  //re-write to use data-author attr selector
         var selection = $('#author-filter').val();
 
         // console.log('author: ' + author);
@@ -108,11 +108,19 @@ articleView.setTeasers = function() {
   // console.log(elemsAfterSecond);
   readOn.on('click', function(event) {
     event.preventDefault();
-    elemsAfterSecond.toggle(); //toggle back to show
-    readOn.toggle(); //off
-    showLess.show();// on
-  });
+    $(this).parent().find('*').show(); //toggle back to show
+    $(this).parent().find(showLess).show(); //on
 
+
+    $(this).toggle();// off
+  });
+  showLess.on('click', function(event) {
+    event.preventDefault();
+    $(this).parent().find(elemsAfterSecond).hide(); //toggle back to show
+    $(this).parent().find(readOn).show(); //on
+
+    $(this).toggle();// off
+  });
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the defaul actionof a link.
